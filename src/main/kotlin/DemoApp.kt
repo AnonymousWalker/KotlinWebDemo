@@ -15,6 +15,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.wycliffeassociates.sourceaudio.upload.FilePathGenerator
 import org.wycliffeassociates.sourceaudio.upload.model.FilePathTestModel
+import java.lang.IllegalArgumentException
 
 
 fun Application.module() {
@@ -40,17 +41,34 @@ fun Application.module() {
         route("/") {
             post {
                 val data = call.receive<FilePathTestModel>()
-                val model = FilePathTestModel(
-                    fileName = data.fileName,
-                    languageCode =  data.languageCode,
-                    dublinCoreId =  data.dublinCoreId,
-                    grouping =  data.grouping,
-                    mediaExtension = data.mediaExtension,
-                    mediaQuality = data.mediaQuality,
-                    expectedResult = ""
-                )
-                val result = FilePathGenerator.createPathFromFile(model.getFileUploadModel())
-                call.respondText(result)
+                val model = if (data.mediaQuality.isNotBlank()) {
+                    FilePathTestModel(
+                        fileName = data.fileName,
+                        languageCode = data.languageCode,
+                        dublinCoreId = data.dublinCoreId,
+                        grouping = data.grouping,
+                        mediaExtension = data.mediaExtension,
+                        mediaQuality = data.mediaQuality,
+                        expectedResult = ""
+                    )
+                } else {
+                    FilePathTestModel(
+                        fileName = data.fileName,
+                        languageCode = data.languageCode,
+                        dublinCoreId = data.dublinCoreId,
+                        grouping = data.grouping,
+                        mediaExtension = data.mediaExtension,
+                        expectedResult = ""
+                    )
+                }
+
+                val result =
+                    try {
+                        FilePathGenerator.createPathFromFile(model.getFileUploadModel())
+                    } catch (ex: IllegalArgumentException) {
+                        ex.message!!
+                    }
+                call.respondText(result, ContentType.Text.Html)
             }
         }
     }
