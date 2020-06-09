@@ -9,11 +9,10 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.netty.handler.codec.http.multipart.FileUpload
 import org.wycliffeassociates.sourceaudio.upload.FilePathGenerator
 import org.wycliffeassociates.sourceaudio.upload.model.FilePathTestModel
-import org.wycliffeassociates.sourceaudio.upload.model.FileUploadModel
 import java.io.File
+import java.lang.IllegalArgumentException
 
 
 fun Application.module() {
@@ -27,23 +26,27 @@ fun Application.module() {
     install(Routing) {
         route("/") {
             get {
-
-//                val html = File("./src/main/kotlin/webapp/index.html").readText()
-//                call.respondText(html, ContentType.Text.Html)
+                val html = File("./src/index.html").readText()
+                call.respondText(html, ContentType.Text.Html)
             }
             post {
-                val data = call.receive<FilePathTestModel>()
+                val data = call.receiveParameters()
                 val model = FilePathTestModel(
-                    fileName = "Filename",
-                    languageCode =  data.languageCode,
-                    dublinCoreId =  data.dublinCoreId,
-                    grouping =  data.grouping,
-                    mediaExtension = data.mediaExtension,
-                    mediaQuality = data.mediaQuality,
+                    fileName = data["filePath"]!!,
+                    languageCode =  data["languageCode"]!!,
+                    dublinCoreId =  data["dublinCoreId"]!!,
+                    projectId = data["projectId"]!!,
+                    grouping =  data["grouping"]!!,
+                    mediaExtension = data["mediaExtension"]!!,
+                    mediaQuality = data["mediaQuality"]!!,
                     expectedResult = ""
                 )
-                val result = FilePathGenerator.createPathFromFile(model.getFileUploadModel())
-                call.respondText(result)
+                val result = try {
+                    FilePathGenerator.createPathFromFile(model.getFileUploadModel())
+                } catch (ex: IllegalArgumentException) {
+                    ex.message!!
+                }
+                call.respondText(result, ContentType.Text.Html)
             }
         }
     }
