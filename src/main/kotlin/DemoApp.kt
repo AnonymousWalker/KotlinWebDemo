@@ -32,7 +32,6 @@ fun Application.module() {
 //                call.respondText(html, ContentType.Text.Html)
             }
             post {
-                //val data = call.receiveParameters()
                 val data = call.receive<FilePathTestModel>()
                 val model = FilePathTestModel(
                     fileName = "Filename",
