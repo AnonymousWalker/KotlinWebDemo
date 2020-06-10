@@ -16,6 +16,18 @@ function submitForm() {
         mediaQuality,
         grouping
     })
-        .then(res => $("#output").text(res.data))
+        .then(res => handleResponse(res))
         .catch(err => console.log(err));
+}
+
+function handleResponse(res) {
+    if(res.data.success) {
+        $("#output").text(res.data.output)
+        $(".output-container").removeClass("error")
+        $(".output-container").addClass("success")
+    } else {
+        $("#output").text(res.data.output)
+        $(".output-container").removeClass("success")
+        $(".output-container").addClass("error")
+    }
 }

@@ -1,3 +1,4 @@
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.application.*
 import io.ktor.features.CORS
 import io.ktor.features.CallLogging
@@ -5,6 +6,7 @@ import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
 import io.ktor.gson.gson
 import io.ktor.http.*
+import io.ktor.http.content.TextContent
 import io.ktor.http.content.default
 import io.ktor.http.content.files
 import io.ktor.http.content.static
@@ -64,11 +66,23 @@ fun Application.module() {
 
                 val result =
                     try {
-                        FilePathGenerator.createPathFromFile(model.getFileUploadModel())
+                        mapOf(
+                                "output" to FilePathGenerator.createPathFromFile(model.getFileUploadModel()),
+                                "success" to true
+                        )
                     } catch (ex: IllegalArgumentException) {
-                        ex.message!!
+                        mapOf(
+                                "output" to ex.message!!,
+                                "success" to false
+                        )
                     }
-                call.respondText(result, ContentType.Text.Html)
+                val mapper = jacksonObjectMapper()
+                val serializedResult = mapper.writeValueAsString(result)
+
+                call.respond(TextContent(
+                        serializedResult,
+                        ContentType.Application.Json
+                ))
             }
         }
     }
