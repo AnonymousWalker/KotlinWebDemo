@@ -39,7 +39,7 @@ data class FileUploadModel(
                 throw IllegalArgumentException("Media Extension is empty")
             }
             if (!CompressedExtensions.isSupported(mediaExtension) && !UncompressedExtensions.isSupported(mediaExtension)) {
-                throw IllegalArgumentException("Media Extension is not supported")
+                throw IllegalArgumentException("$mediaExtension file is not supported")
             }
         } else if (!CompressedExtensions.isSupported(fileExtension) && !UncompressedExtensions.isSupported(fileExtension)) {
             throw IllegalArgumentException(".${fileExtension} file is not supported")
