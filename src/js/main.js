@@ -1,6 +1,5 @@
 function submitForm() {
-
-    const fileName = $("#file").val();
+    const fileName = document.getElementById("file").files[0].name;
     const languageCode = $("#languageCode").val();
     const dublinCoreId = $("#dublinCoreId").val();
     const projectId = $("#projectId").val();
@@ -19,6 +18,4 @@ function submitForm() {
     })
         .then(res => $("#output").text(res.data))
         .catch(err => console.log(err));
-
-
 }
