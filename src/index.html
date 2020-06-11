@@ -22,25 +22,30 @@
         <input type="file" id="file" name="file">
         <br><br>
 
-        <label for="languageCode">Language Code</label>
+        <label for="languageCode">Language Code<sup>*</sup></label>
         <input type="text" id="languageCode" name="languageCode" placeholder="en">
 
-        <label for="dublinCoreId">Dublin Core ID</label>
-        <input type="text" id="dublinCoreId" name="dublinCoreId" placeholder="ulb">
+        <label for="dublinCoreId">Dublin Core ID<sup>*</sup></label>
+        <input type="text" id="dublinCoreId" name="dublinCoreId" placeholder="ulb, tq, tn, ...">
 
         <label for="projectId">Project ID</label>
-        <input type="text" id="projectId" name="projectId" placeholder="gen">
+        <input type="text" id="projectId" name="projectId" placeholder="gen, mat, exo, ...">
 
-        <label for="mediaExtension">Media Extension</label>
+        <label for="mediaExtension">Media Extension<sup>1</sup></label>
         <input type="text" id="mediaExtension" name="mediaExtension">
 
-        <label for="mediaQuality">Media Quality</label>
+        <label for="mediaQuality">Media Quality<sup>2</sup></label>
         <input type="text" id="mediaQuality" name="mediaQuality" placeholder="hi">
 
         <label for="grouping">Grouping</label>
-        <input type="text" id="grouping" name="grouping">
+        <input type="text" id="grouping" name="grouping" placeholder="book, chapter, verse, chunk">
 
         <input id="submit" type="submit" value="Submit" onclick="submitForm()">
+
+        <hr>
+
+        <p class="footnote"><sup>1</sup>required only if uploading a .tr file</p>
+        <p class="footnote"><sup>2</sup>required only if uploading a compressed file format</p>
     </div>
 
     <div class="output-container">
