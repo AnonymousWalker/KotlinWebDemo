@@ -48,6 +48,7 @@ fun Application.module() {
                         fileName = data.fileName,
                         languageCode = data.languageCode,
                         dublinCoreId = data.dublinCoreId,
+                        projectId = data.projectId,
                         grouping = data.grouping,
                         mediaExtension = data.mediaExtension,
                         mediaQuality = data.mediaQuality,
@@ -58,6 +59,7 @@ fun Application.module() {
                         fileName = data.fileName,
                         languageCode = data.languageCode,
                         dublinCoreId = data.dublinCoreId,
+                        projectId = data.projectId,
                         grouping = data.grouping,
                         mediaExtension = data.mediaExtension,
                         expectedResult = ""
