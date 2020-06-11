@@ -81,10 +81,7 @@ fun Application.module() {
                 val mapper = jacksonObjectMapper()
                 val serializedResult = mapper.writeValueAsString(result)
 
-                call.respond(TextContent(
-                        serializedResult,
-                        ContentType.Application.Json
-                ))
+                call.respondText(serializedResult, ContentType.Application.Json)
             }
         }
     }
