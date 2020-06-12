@@ -17,6 +17,7 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import org.wycliffeassociates.sourceaudio.upload.FilePathGenerator
 import org.wycliffeassociates.sourceaudio.upload.model.FilePathTestModel
+import java.io.File
 import java.lang.IllegalArgumentException
 
 
@@ -37,10 +38,13 @@ fun Application.module() {
             static("static") {
                 files("src/css")
                 files("src/js")
-                default("src/index.html")
             }
         }
         route("/") {
+            get {
+                val html = File("D:/Projects/SimpleWebServer/src/index.html").readText()
+                call.respondText(html, ContentType.Text.Html)
+            }
             post {
                 val data = call.receive<FilePathTestModel>()
                 val model = if (data.mediaQuality.isNotBlank()) {
@@ -69,13 +73,13 @@ fun Application.module() {
                 val result =
                     try {
                         mapOf(
-                                "output" to FilePathGenerator.createPathFromFile(model.getFileUploadModel()),
-                                "success" to true
+                            "output" to FilePathGenerator.createPathFromFile(model.getFileUploadModel()),
+                            "success" to true
                         )
                     } catch (ex: IllegalArgumentException) {
                         mapOf(
-                                "output" to ex.message!!,
-                                "success" to false
+                            "output" to ex.message!!,
+                            "success" to false
                         )
                     }
                 val mapper = jacksonObjectMapper()
