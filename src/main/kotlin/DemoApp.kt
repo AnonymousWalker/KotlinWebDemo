@@ -42,7 +42,7 @@ fun Application.module() {
         }
         route("/") {
             get {
-                val html = File("D:/Projects/SimpleWebServer/src/index.html").readText()
+                val html = File("./src/index.html").readText()
                 call.respondText(html, ContentType.Text.Html)
             }
             post {
