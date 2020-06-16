@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Greeting Page</title>
+</head>
+<body>
+
+<h2 th:text="'This page is displayed in ' + #{anglicized_name} + '. ' + #{greeting} + ' user!   ' + ${#locale}"></h2>
+
+</body>
+</html>
