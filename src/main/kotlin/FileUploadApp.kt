@@ -1,7 +1,10 @@
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.application.*
 import io.ktor.features.CORS
+import io.ktor.features.CallLogging
+import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
+import io.ktor.gson.gson
 import io.ktor.http.*
 import io.ktor.http.content.files
 import io.ktor.http.content.static
@@ -23,6 +26,12 @@ fun Application.module() {
     install(CORS) {
         anyHost()
         header(HttpHeaders.AccessControlAllowOrigin)
+    }
+    install(CallLogging)
+    install(ContentNegotiation) {
+        gson {
+            setPrettyPrinting()
+        }
     }
     install(Thymeleaf) {
         setTemplateResolver(ClassLoaderTemplateResolver().apply {
