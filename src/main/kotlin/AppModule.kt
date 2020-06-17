@@ -38,9 +38,8 @@ fun Application.module() {
             call.respond(ThymeleafContent("index", mapOf("obj" to "")))
         }
         post("/upload") {
-            val multiPart = call.receiveMultipart()
-            val parts = multiPart.readAllParts()
-            val result = RequestHandler().handleFormUpload(parts)
+            val multiPart = call.receiveMultipart().readAllParts()
+            val result = RequestHandler().handleFormUpload(multiPart)
 
             call.respondText(result)
         }
