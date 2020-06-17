@@ -16,43 +16,45 @@
 
 <div class="grid-container">
     <div class="input-container">
-        <input type="file" id="file" name="file">
-        <br><br>
+        <form action="upload" method="POST" enctype="multipart/form-data">
+            <input type="file" id="file" name="file">
+            <br><br>
 
-        <label for="languageCode"><span th:text="#{language_code}">Language Code</span><sup>*</sup></label>
-        <input type="text" id="languageCode" name="languageCode" placeholder="en, fr, aa, ...">
+            <label for="languageCode"><span th:text="#{language_code}">Language Code</span><sup>*</sup></label>
+            <input type="text" id="languageCode" name="languageCode" placeholder="en, fr, aa, ...">
 
-        <label for="dublinCoreId"><span th:text="#{resource_type}">Resource Type</span><sup>*</sup></label>
-        <input type="text" id="dublinCoreId" name="dublinCoreId" placeholder="ulb, tq, tn, ...">
+            <label for="dublinCoreId"><span th:text="#{resource_type}">Resource Type</span><sup>*</sup></label>
+            <input type="text" id="dublinCoreId" name="dublinCoreId" placeholder="ulb, tq, tn, ...">
 
-        <label for="projectId"><span th:text="#{book_id}">Book ID</span></label>
-        <input type="text" id="projectId" name="projectId" placeholder="gen, mat, exo, ...">
+            <label for="projectId"><span th:text="#{book_id}">Book ID</span></label>
+            <input type="text" id="projectId" name="projectId" placeholder="gen, mat, exo, ...">
 
-        <label for="mediaExtension"><span th:text="#{media_extension}">Media Extension</span><sup>1</sup></label>
-        <input type="text" id="mediaExtension" name="mediaExtension" placeholder="mp3, wav">
+            <label for="mediaExtension"><span th:text="#{media_extension}">Media Extension</span><sup>1</sup></label>
+            <input type="text" id="mediaExtension" name="mediaExtension" placeholder="mp3, wav">
 
-        <label for="mediaQuality"><span th:text="#{media_quality}">Media Quality</span><sup>2</sup></label>
-        <input type="text" id="mediaQuality" name="mediaQuality" placeholder="hi, low">
+            <label for="mediaQuality"><span th:text="#{media_quality}">Media Quality</span><sup>2</sup></label>
+            <input type="text" id="mediaQuality" name="mediaQuality" placeholder="hi, low">
 
-        <label for="grouping"><span th:text="#{grouping}">Grouping</span><sup>*</sup></label>
-        <input type="text" id="grouping" name="grouping" placeholder="book, chapter, verse, chunk">
+            <label for="grouping"><span th:text="#{grouping}">Grouping</span><sup>*</sup></label>
+            <input type="text" id="grouping" name="grouping" placeholder="book, chapter, verse, chunk">
 
-        <input id="submit" type="submit" th:value="#{submit}" onclick="submitForm()">
+            <input id="submit" type="submit" th:value="#{submit}" onclick="submitForm()">
 
-        <hr>
+            <hr>
 
-        <p class="footnote">
-            <sup>1</sup>
-            <span th:text="#{footnote_1}">
+            <p class="footnote">
+                <sup>1</sup>
+                <span th:text="#{footnote_1}">
                 required only if uploading a .tr file
             </span>
-        </p>
-        <p class="footnote">
-            <sup>2</sup>
-            <span th:text="#{footnote_2}">
+            </p>
+            <p class="footnote">
+                <sup>2</sup>
+                <span th:text="#{footnote_2}">
                 required only if uploading a compressed file format (defaults to hi if empty)
             </span>
-        </p>
+            </p>
+        </form>
     </div>
 
     <div class="output-container">

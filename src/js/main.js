@@ -1,33 +1,19 @@
-function submitForm() {
-    const fileName = document.getElementById("file").files[0].name;
-    const languageCode = $("#languageCode").val();
-    const dublinCoreId = $("#dublinCoreId").val();
-    const projectId = $("#projectId").val();
-    const mediaExtension = $("#mediaExtension").val();
-    const mediaQuality = $("#mediaQuality").val();
-    const grouping = $("#grouping").val();
+document.addEventListener('submit', e => {
+    const form = e.target
+    e.preventDefault()
 
-    axios.post('http://localhost:4567/', {
-        fileName,
-        languageCode,
-        dublinCoreId,
-        projectId,
-        mediaExtension,
-        mediaQuality,
-        grouping
+    fetch(form.action, {
+        method: form.method,
+        body: new FormData(form)
     })
-        .then(res => handleResponse(res))
-        .catch(err => console.log(err));
-}
+        .then(res => console.log(res)) // TODO: handle the response appropriately
+})
 
 function handleResponse(res) {
+    $(".main-grid__output-text").text(res.data.output)
     if(res.data.success) {
-        $("#output").text(res.data.output)
-        $(".output-container").removeClass("error")
-        $(".output-container").addClass("success")
+        $(".main-grid__output").removeClass("main-grid__output--error").addClass("main-grid__output--success")
     } else {
-        $("#output").text(res.data.output)
-        $(".output-container").removeClass("success")
-        $(".output-container").addClass("error")
+        $(".main-grid__output").removeClass("main-grid__output--success").addClass("main-grid__output--error")
     }
 }
