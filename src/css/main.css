@@ -29,13 +29,13 @@ input[type=submit]:hover {
     background-color: #45a049;
 }
 
-.grid-container {
+.main-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
 /* Add a background color and some padding around the form */
-.input-container {
+.main-grid__input {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
@@ -43,7 +43,7 @@ input[type=submit]:hover {
     margin: auto;
 }
 
-.output-container {
+.main-grid__output {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
