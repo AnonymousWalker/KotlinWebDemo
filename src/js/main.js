@@ -1,4 +1,9 @@
+let timeoutDuration = 10 // this number should be the duration in seconds
+let removeOutputMessageTimeout;
+
 function submitForm() {
+    clearTimeout(removeOutputMessageTimeout)
+
     const fileName = document.getElementById("file").files[0].name;
     const languageCode = $("#languageCode").val();
     const dublinCoreId = $("#dublinCoreId").val();
@@ -29,4 +34,11 @@ function handleResponse(res) {
         $(".main-grid__success-status").text("Error!")
         $(".main-grid__output").removeClass("main-grid__output--success").addClass("main-grid__output--error")
     }
+
+    // multiply by 1000 here to convert from seconds to milliseconds
+    removeOutputMessageTimeout = setTimeout(removeOutputMessage, 1000 * timeoutDuration)
+}
+
+function removeOutputMessage() {
+    $(".main-grid__output").removeClass("main-grid__output--success").removeClass("main-grid__output--error")
 }
