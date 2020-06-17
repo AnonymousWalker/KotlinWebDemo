@@ -37,7 +37,7 @@
         <label for="grouping"><span th:text="#{grouping}">Grouping</span><sup>*</sup></label>
         <input type="text" id="grouping" name="grouping" placeholder="book, chapter, verse, chunk">
 
-        <input id="submit" type="submit" value="#{submit}" onclick="submitForm()">
+        <input id="submit" type="submit" th:value="#{submit}" onclick="submitForm()">
 
         <hr>
 
