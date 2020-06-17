@@ -34,28 +34,9 @@ class RequestHandler {
     }
 
     private fun processUploadModel(file: File, params: Map<String, String>): String {
-        var response = mutableMapOf<String, Any>()
+        val response = mutableMapOf<String, Any>()
         try {
-            val model = if (params["mediaQuality"]!!.isNotBlank()) {
-                FileUploadModel(
-                    inputFile = file,
-                    languageCode = params["languageCode"]!!,
-                    dublinCoreId = params["dublinCoreId"]!!,
-                    grouping = params["grouping"]!!,
-                    projectId = params["projectId"]!!,
-                    mediaExtension = params["mediaExtension"]!!,
-                    mediaQuality = params["mediaQuality"]!!
-                )
-            } else {
-                FileUploadModel(
-                    inputFile = file,
-                    languageCode = params["languageCode"]!!,
-                    dublinCoreId = params["dublinCoreId"]!!,
-                    grouping = params["grouping"]!!,
-                    projectId = params["projectId"]!!,
-                    mediaExtension = params["mediaExtension"]!!
-                )
-            }
+            val model = createModel(file, params)
             response.putAll(
                 mapOf(
                     "output" to FilePathGenerator.createPathFromFile(model),
@@ -72,5 +53,29 @@ class RequestHandler {
         }
 
         return jacksonObjectMapper().writeValueAsString(response)
+    }
+
+    @Throws(IllegalArgumentException::class)
+    private fun createModel(file: File, params: Map<String, String>): FileUploadModel {
+        return if (params["mediaQuality"]!!.isNotBlank()) {
+            FileUploadModel(
+                inputFile = file,
+                languageCode = params["languageCode"]!!,
+                dublinCoreId = params["dublinCoreId"]!!,
+                grouping = params["grouping"]!!,
+                projectId = params["projectId"]!!,
+                mediaExtension = params["mediaExtension"]!!,
+                mediaQuality = params["mediaQuality"]!!
+            )
+        } else {
+            FileUploadModel(
+                inputFile = file,
+                languageCode = params["languageCode"]!!,
+                dublinCoreId = params["dublinCoreId"]!!,
+                grouping = params["grouping"]!!,
+                projectId = params["projectId"]!!,
+                mediaExtension = params["mediaExtension"]!!
+            )
+        }
     }
 }

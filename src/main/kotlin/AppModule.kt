@@ -20,11 +20,6 @@ fun Application.module() {
         header(HttpHeaders.AccessControlAllowOrigin)
     }
     install(CallLogging)
-    install(ContentNegotiation) {
-        gson {
-            setPrettyPrinting()
-        }
-    }
     install(Thymeleaf) {
         setTemplateResolver(ClassLoaderTemplateResolver().apply {
             prefix = "templates/"
@@ -47,7 +42,7 @@ fun Application.module() {
         }
         post("/upload") {
             val multiPart = call.receiveMultipart()
-            var parts = multiPart.readAllParts()
+            val parts = multiPart.readAllParts()
             val result = RequestHandler().handleFormUpload(parts)
 
             call.respondText(result)
