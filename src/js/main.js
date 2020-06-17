@@ -21,10 +21,12 @@ function submitForm() {
 }
 
 function handleResponse(res) {
-    $(".main-grid__output-text").text(res.data.output)
+    $(".main-grid__output-message").text(res.data.output)
     if(res.data.success) {
+        $(".main-grid__success-status").text("Success!")
         $(".main-grid__output").removeClass("main-grid__output--error").addClass("main-grid__output--success")
     } else {
+        $(".main-grid__success-status").text("Error!")
         $(".main-grid__output").removeClass("main-grid__output--success").addClass("main-grid__output--error")
     }
 }

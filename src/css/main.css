@@ -28,38 +28,37 @@ input[type=submit]:hover {
 
 .main-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
 }
 
 .main-grid__input {
-    border-radius: 5px;
+    border-radius: 5px 5px 0 0;
     background-color: #f2f2f2;
-    padding: 20px;
+    padding: 2%;
     width: 90%;
     margin: auto;
 }
 
 .main-grid__output {
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     background-color: #f2f2f2;
-    padding: 20px;
-    width: 90%;
+    width: 94%;
     margin: auto;
+    text-align: center;
+    max-height: 0;
+    overflow: hidden;
 }
 
 .main-grid__output--success {
     background-color: #cdffcf;
-    animation: enlarge 1.2s ease-in-out alternate;
-    -webkit-animation: enlarge 1.2s ease-in-out alternate;
+    max-height: 100%;
+    transition: all .5s ease;
 }
 
 .main-grid__output--error {
     background-color: #ffa9b9;
-    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-    -webkit-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
-    transform: translate3d(0, 0, 0);
-    backface-visibility: hidden;
-    perspective: 1000px;
+    max-height: 100%;
+    transition: all .5s ease;
 }
 
 @keyframes enlarge {
