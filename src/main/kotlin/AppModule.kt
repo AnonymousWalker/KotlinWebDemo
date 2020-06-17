@@ -13,13 +13,12 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import io.ktor.thymeleaf.Thymeleaf
-import io.ktor.thymeleaf.ThymeleafContent
-import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import org.wycliffeassociates.sourceaudio.upload.FilePathGenerator
 import org.wycliffeassociates.sourceaudio.upload.model.FilePathTestModel
-import java.io.File
 import java.lang.IllegalArgumentException
+import dev.jbs.ktor.thymeleaf.*
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
+import java.util.*
 
 fun Application.module() {
     install(DefaultHeaders)
@@ -45,12 +44,12 @@ fun Application.module() {
             static("static") {
                 files("src/css")
                 files("src/js")
+                files("src/main/resources/templates")
             }
         }
         route("/") {
             get {
-                val html = File("./src/index.html").readText()
-                call.respondText(html, ContentType.Text.Html)
+                call.respond(ThymeleafContent("index", mapOf("obj" to "")))
             }
             post {
                 val data = call.receive<FilePathTestModel>()
@@ -60,12 +59,12 @@ fun Application.module() {
             }
         }
         get("/greeting") {
-            call.respond(ThymeleafContent("greeting_page", mapOf("user" to "asdf")))
+            call.respond(ThymeleafContent("greeting_page", mapOf("user" to ""), locale = Locale.FRENCH))
         }
     }
 }
 
-fun processFileUpload(data: FilePathTestModel): String {
+private fun processFileUpload(data: FilePathTestModel): String {
     val model = if (data.mediaQuality.isNotBlank()) {
         FilePathTestModel(
             fileName = data.fileName,
@@ -102,12 +101,7 @@ fun processFileUpload(data: FilePathTestModel): String {
             )
         }
     val mapper = jacksonObjectMapper()
-    val serializedResult = mapper.writeValueAsString(result)
 
-    return serializedResult
+    return mapper.writeValueAsString(result)
 }
 
-fun main(args: Array<String>) {
-    val server = embeddedServer(Netty, 8080, watchPaths = listOf("KotlinWeb"), module = Application::module)
-    server.start(wait = true)
-}
