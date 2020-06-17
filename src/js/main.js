@@ -23,8 +23,8 @@ function submitForm() {
 function handleResponse(res) {
     $("#main-grid__output-text").text(res.data.output)
     if(res.data.success) {
-        $(".main-grid__output").removeClass("error").addClass("success")
+        $(".main-grid__output").removeClass("main-grid__output--error").addClass("main-grid__output--success")
     } else {
-        $(".main-grid__output").removeClass("success").addClass("error")
+        $(".main-grid__output").removeClass("main-grid__output--success").addClass("main-grid__output--error")
     }
 }
