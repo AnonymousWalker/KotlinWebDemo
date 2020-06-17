@@ -32,13 +32,10 @@ fun Application.module() {
             static("static") {
                 files("src/css")
                 files("src/js")
-                files("src/main/resources/templates")
             }
         }
-        route("/") {
-            get {
-                call.respond(ThymeleafContent("index", mapOf("obj" to "")))
-            }
+        get("/") {
+            call.respond(ThymeleafContent("index", mapOf("obj" to "")))
         }
         post("/upload") {
             val multiPart = call.receiveMultipart()
