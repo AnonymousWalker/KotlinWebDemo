@@ -21,13 +21,10 @@ function submitForm() {
 }
 
 function handleResponse(res) {
+    $(".main-grid__output-text").text(res.data.output)
     if(res.data.success) {
-        $("#output").text(res.data.output)
-        $(".output-container").removeClass("error")
-        $(".output-container").addClass("success")
+        $(".main-grid__output").removeClass("main-grid__output--error").addClass("main-grid__output--success")
     } else {
-        $("#output").text(res.data.output)
-        $(".output-container").removeClass("success")
-        $(".output-container").addClass("error")
+        $(".main-grid__output").removeClass("main-grid__output--success").addClass("main-grid__output--error")
     }
 }

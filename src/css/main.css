@@ -2,19 +2,17 @@ body {
     padding: 3%;
 }
 
-/* Style inputs with type="text", select elements and textareas */
 input[type=text], select, textarea {
-    width: 100%; /* Full width */
-    padding: 12px; /* Some padding */
-    border: 1px solid #ccc; /* Gray border */
-    border-radius: 4px; /* Rounded borders */
-    box-sizing: border-box; /* Make sure that padding and width stays in place */
-    margin-top: 6px; /* Add a top margin */
-    margin-bottom: 16px; /* Bottom margin */
-    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 6px;
+    margin-bottom: 16px;
+    resize: vertical
 }
 
-/* Style the submit button with a specific background color etc */
 input[type=submit] {
     background-color: #4CAF50;
     color: white;
@@ -24,18 +22,16 @@ input[type=submit] {
     cursor: pointer;
 }
 
-/* When moving the mouse over the submit button, add a darker green color */
 input[type=submit]:hover {
     background-color: #45a049;
 }
 
-.grid-container {
+.main-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
 
-/* Add a background color and some padding around the form */
-.input-container {
+.main-grid__input {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
@@ -43,7 +39,7 @@ input[type=submit]:hover {
     margin: auto;
 }
 
-.output-container {
+.main-grid__output {
     border-radius: 5px;
     background-color: #f2f2f2;
     padding: 20px;
@@ -51,13 +47,13 @@ input[type=submit]:hover {
     margin: auto;
 }
 
-.success {
+.main-grid__output--success {
     background-color: #cdffcf;
     animation: enlarge 1.2s ease-in-out alternate;
     -webkit-animation: enlarge 1.2s ease-in-out alternate;
 }
 
-.error {
+.main-grid__output--error {
     background-color: #ffa9b9;
     animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
     -webkit-animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
@@ -89,6 +85,6 @@ input[type=submit]:hover {
     }
 }
 
-.footnote {
+.main-grid__footer {
     font-size: 0.75rem;
 }

@@ -14,8 +14,8 @@
 </head>
 <body>
 
-<div class="grid-container">
-    <div class="input-container">
+<div class="main-grid">
+    <div class="main-grid__input">
         <input type="file" id="file" name="file">
         <br><br>
 
@@ -41,13 +41,13 @@
 
         <hr>
 
-        <p class="footnote">
+        <p class="main-grid__footer">
             <sup>1</sup>
             <span th:text="#{footnote_1}">
                 required only if uploading a .tr file
             </span>
         </p>
-        <p class="footnote">
+        <p class="main-grid__footer">
             <sup>2</sup>
             <span th:text="#{footnote_2}">
                 required only if uploading a compressed file format (defaults to hi if empty)
@@ -55,9 +55,8 @@
         </p>
     </div>
 
-    <div class="output-container">
-        <label for="output">Output</label>
-        <p id="output">This is the output</p>
+    <div class="main-grid__output">
+        <label>Output<p class="main-grid__output-text">This is the output</p></label>
     </div>
 </div>
 
