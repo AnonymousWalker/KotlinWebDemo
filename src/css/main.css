@@ -47,6 +47,7 @@ input[type=submit]:hover {
     text-align: center;
     max-height: 0;
     overflow: hidden;
+    transition: all .5s ease;
 }
 
 .main-grid__output--success {
