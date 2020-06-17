@@ -29,10 +29,11 @@ input[type=submit]:hover {
 .main-grid {
     display: grid;
     grid-template-columns: 1fr;
+    margin-bottom: 15%;
 }
 
 .main-grid__input {
-    border-radius: 5px 5px 0 0;
+    border-radius: 5px;
     background-color: #f2f2f2;
     padding: 2%;
     width: 90%;
@@ -40,14 +41,18 @@ input[type=submit]:hover {
 }
 
 .main-grid__output {
-    border-radius: 0 0 5px 5px;
+    border-radius: 5px;
     background-color: #f2f2f2;
-    width: 94%;
+    width: 90%;
     margin: auto;
     text-align: center;
     max-height: 0;
     overflow: hidden;
     transition: all .5s ease;
+    position: fixed;
+    bottom: 5%;
+    left: 0;
+    right: 0;
 }
 
 .main-grid__output--success {
