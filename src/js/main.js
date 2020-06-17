@@ -21,7 +21,7 @@ function submitForm() {
 }
 
 function handleResponse(res) {
-    $("#main-grid__output-text").text(res.data.output)
+    $(".main-grid__output-text").text(res.data.output)
     if(res.data.success) {
         $(".main-grid__output").removeClass("main-grid__output--error").addClass("main-grid__output--success")
     } else {
