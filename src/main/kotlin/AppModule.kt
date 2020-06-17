@@ -52,29 +52,20 @@ fun Application.module() {
             get {
                 call.respond(ThymeleafContent("index", mapOf("obj" to ""), locale = Locale("vi")))
             }
-            post {
-                val data = call.receive<FilePathTestModel>()
-                val serializedResult = processFileUpload(data)
-
-                call.respondText(serializedResult, ContentType.Application.Json)
-            }
         }
         post("/upload") {
             val multiPart = call.receiveMultipart()
-//                val parts = multiPart.readAllParts()
             val dataMap: MutableMap<String, String> = mutableMapOf()
             val fileUploadModel: FileUploadModel
             var file = File("")
+
             multiPart.forEachPart { part ->
                 when (part) {
                     is PartData.FormItem -> {
-                        println(part.name + "=" + part.value)
-//                            if (part.name == "languageCode")
                         dataMap[part.name!!] = part.value
                     }
                     is PartData.FileItem -> {
-                        file = File("./src/main/resources/${part.originalFileName!!}")
-                        println(file.path)
+                        file = File("./src/main/resources/uploads/${part.originalFileName!!}")
                         part.streamProvider().use { input ->
                             file.outputStream().buffered().use {
                                 input.copyTo(it)
@@ -84,6 +75,7 @@ fun Application.module() {
                 }
                 part.dispose()
             }
+
             val result = processFileUpload(file, dataMap)
 
             call.respondText(result)
@@ -93,32 +85,30 @@ fun Application.module() {
 
 private fun processFileUpload(file: File, data: Map<String,String>): String {
     val model = if (data["mediaQuality"]!!.isNotBlank()) {
-        FilePathTestModel(
-            fileName = "",
+        FileUploadModel(
+            inputFile = file,
             languageCode = data["languageCode"]!!,
             dublinCoreId = data["dublinCoreId"]!!,
             grouping = data["grouping"]!!,
             projectId = data["projectId"]!!,
             mediaExtension = data["mediaExtension"]!!,
-            mediaQuality = data["mediaQuality"]!!,
-            expectedResult = ""
+            mediaQuality = data["mediaQuality"]!!
         )
     } else {
-        FilePathTestModel(
-            fileName = "",
+        FileUploadModel(
+            inputFile = file,
             languageCode = data["languageCode"]!!,
             dublinCoreId = data["dublinCoreId"]!!,
             grouping = data["grouping"]!!,
             projectId = data["projectId"]!!,
-            mediaExtension = data["mediaExtension"]!!,
-            expectedResult = ""
+            mediaExtension = data["mediaExtension"]!!
         )
     }
-    model.inputFile = file
+
     val result =
         try {
             mapOf(
-                "output" to FilePathGenerator.createPathFromFile(model.getFileUploadModel()),
+                "output" to FilePathGenerator.createPathFromFile(model),
                 "success" to true
             )
         } catch (ex: IllegalArgumentException) {
@@ -127,48 +117,7 @@ private fun processFileUpload(file: File, data: Map<String,String>): String {
                 "success" to false
             )
         }
-    val mapper = jacksonObjectMapper()
 
-    return mapper.writeValueAsString(result)
-}
-
-
-private fun processFileUpload(data: FilePathTestModel): String {
-    val model = if (data.mediaQuality.isNotBlank()) {
-        FilePathTestModel(
-            fileName = data.fileName,
-            languageCode = data.languageCode,
-            dublinCoreId = data.dublinCoreId,
-            projectId = data.projectId,
-            grouping = data.grouping,
-            mediaExtension = data.mediaExtension,
-            mediaQuality = data.mediaQuality,
-            expectedResult = ""
-        )
-    } else {
-        FilePathTestModel(
-            fileName = data.fileName,
-            languageCode = data.languageCode,
-            dublinCoreId = data.dublinCoreId,
-            projectId = data.projectId,
-            grouping = data.grouping,
-            mediaExtension = data.mediaExtension,
-            expectedResult = ""
-        )
-    }
-
-    val result =
-        try {
-            mapOf(
-                "output" to FilePathGenerator.createPathFromFile(model.getFileUploadModel()),
-                "success" to true
-            )
-        } catch (ex: IllegalArgumentException) {
-            mapOf(
-                "output" to ex.message!!,
-                "success" to false
-            )
-        }
     val mapper = jacksonObjectMapper()
 
     return mapper.writeValueAsString(result)

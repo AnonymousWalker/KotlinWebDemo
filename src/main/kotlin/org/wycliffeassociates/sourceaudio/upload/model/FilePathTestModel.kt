@@ -12,7 +12,7 @@ data class FilePathTestModel(
     val mediaExtension: String = "",
     val mediaQuality: String = "hi"
 ) {
-    var inputFile: File = File(fileName)
+    private val inputFile: File = File(fileName)
 
     fun getFileUploadModel(): FileUploadModel {
         return FileUploadModel(inputFile, languageCode, dublinCoreId, grouping, projectId, mediaExtension, mediaQuality)
