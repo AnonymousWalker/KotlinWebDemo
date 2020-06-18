@@ -26,8 +26,6 @@ function submitForm() {
 }
 
 function handleResponse(res) {
-    // note that there are two p tags with class main-grid__output-message
-    // it's fine to replace both though since only will be shown at a time anyway
     if(res.data.success) {
         $(".main-grid__success-message").text(res.data.output)
         $(".main-grid__error").removeClass("main-grid__show-success-status")
