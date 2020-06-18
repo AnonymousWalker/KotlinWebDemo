@@ -1,4 +1,4 @@
-let timeoutDuration = 10 // this number should be the duration in seconds
+const timeoutDuration = 10000 // 10 seconds
 let removeOutputMessageTimeout;
 
 function submitForm() {
@@ -36,8 +36,7 @@ function handleResponse(res) {
         document.querySelector(".main-grid__error").classList.add("main-grid__show-success-status")
     }
 
-    // multiply by 1000 here to convert from seconds to milliseconds
-    removeOutputMessageTimeout = setTimeout(removeOutputMessage, 1000 * timeoutDuration)
+    removeOutputMessageTimeout = setTimeout(removeOutputMessage, timeoutDuration)
 }
 
 function removeOutputMessage() {
