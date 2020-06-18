@@ -61,7 +61,7 @@ class RequestHandler {
             FileUploadModel(
                 inputFile = file,
                 languageCode = params["languageCode"]!!,
-                dublinCoreId = params["dublinCoreId"]!!,
+                resourceType = params["resourceType"]!!,
                 grouping = params["grouping"]!!,
                 projectId = params["projectId"]!!,
                 mediaExtension = params["mediaExtension"]!!,
@@ -71,7 +71,7 @@ class RequestHandler {
             FileUploadModel(
                 inputFile = file,
                 languageCode = params["languageCode"]!!,
-                dublinCoreId = params["dublinCoreId"]!!,
+                resourceType = params["resourceType"]!!,
                 grouping = params["grouping"]!!,
                 projectId = params["projectId"]!!,
                 mediaExtension = params["mediaExtension"]!!

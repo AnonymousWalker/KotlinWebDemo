@@ -7,7 +7,7 @@ import java.lang.IllegalArgumentException
 data class FileUploadModel(
     val inputFile: File,
     val languageCode: String,
-    val dublinCoreId: String,
+    val resourceType: String,
     val grouping: String,
     val projectId: String = "",
     val mediaExtension: String = "",
@@ -24,7 +24,7 @@ data class FileUploadModel(
     @Throws(IllegalArgumentException::class)
     private fun validate() {
         if (languageCode.isBlank()) { throw IllegalArgumentException("Language Code is empty") }
-        if (dublinCoreId.isBlank()) { throw IllegalArgumentException("Dublin Core ID is empty") }
+        if (resourceType.isBlank()) { throw IllegalArgumentException("Dublin Core ID is empty") }
         if (grouping.isBlank()) { throw IllegalArgumentException("Group is empty") }
         if (!Groupings.isSupported(grouping)) { throw IllegalArgumentException("Group is not supported") }
         if (!MediaQuality.isSupported(mediaQuality)) { throw IllegalArgumentException("Media Quality is invalid") }
