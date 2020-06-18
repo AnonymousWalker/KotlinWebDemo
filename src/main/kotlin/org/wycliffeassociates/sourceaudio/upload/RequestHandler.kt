@@ -12,24 +12,19 @@ import java.lang.IllegalArgumentException
 class RequestHandler {
 
     fun handleFormUpload(parts: List<PartData>): String {
-        val paramsMap: MutableMap<String, String> = mutableMapOf()
         var file = File("./src/main/resources/uploads/").apply { mkdirs() }
+        val formItems = parts.filterIsInstance<PartData.FormItem>()
+        val formFiles = parts.filterIsInstance<PartData.FileItem>()
+        val paramsMap = formItems.associateBy { it.name!! }.mapValues { it.value.value }
 
-        parts.forEach { part ->
-            when (part) {
-                is PartData.FormItem -> {
-                    paramsMap[part.name!!] = part.value
-                }
-                is PartData.FileItem -> {
-                    file = file.resolve(part.originalFileName!!)
-                    part.streamProvider().use { input ->
-                        file.outputStream().buffered().use {
-                            input.copyTo(it)
-                        }
-                    }
+        formFiles.forEach() { fileItem ->
+            file = file.resolve(fileItem.originalFileName!!)
+            fileItem.streamProvider().use { input ->
+                file.outputStream().buffered().use {
+                    input.copyTo(it)
                 }
             }
-            part.dispose()
+            fileItem.dispose()
         }
 
         return processUploadModel(file, paramsMap)
