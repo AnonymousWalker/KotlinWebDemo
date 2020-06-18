@@ -30,15 +30,28 @@
             <input type="text" id="projectId" name="projectId" placeholder="gen, mat, exo, ...">
 
             <label for="mediaExtension"><span th:text="#{media_extension}">Media Extension</span><sup>1</sup></label>
-            <input type="text" id="mediaExtension" name="mediaExtension" placeholder="mp3, wav">
+            <select name="mediaExtension" id="mediaExtension">
+                <option value="">N/A</option>
+                <option value="mp3">mp3</option>
+                <option value="wav">wav</option>
+            </select>
 
             <label for="mediaQuality"><span th:text="#{media_quality}">Media Quality</span><sup>2</sup></label>
-            <input type="text" id="mediaQuality" name="mediaQuality" placeholder="hi, low">
+            <select name="mediaQuality" id="mediaQuality">
+                <option value="">N/A</option>
+                <option value="hi">hi</option>
+                <option value="low">low</option>
+            </select>
 
             <label for="grouping"><span th:text="#{grouping}">Grouping</span><sup>*</sup></label>
-            <input type="text" id="grouping" name="grouping" placeholder="book, chapter, verse, chunk">
+            <select name="grouping" id="grouping">
+                <option value="book">Book</option>
+                <option value="chapter">Chapter</option>
+                <option value="verse">Verse</option>
+                <option value="chunk">Chunk</option>
+            </select>
 
-            <input id="submit" type="submit" th:value="#{submit}" onclick="submitForm()">
+            <input id="submit" type="submit" th:value="#{submit}">
 
             <hr>
 
