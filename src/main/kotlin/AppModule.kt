@@ -1,9 +1,7 @@
 import io.ktor.application.*
 import io.ktor.features.CORS
 import io.ktor.features.CallLogging
-import io.ktor.features.ContentNegotiation
 import io.ktor.features.DefaultHeaders
-import io.ktor.gson.gson
 import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -41,7 +39,7 @@ fun Application.module() {
             val multiPart = call.receiveMultipart().readAllParts()
             val result = RequestHandler().handleFormUpload(multiPart)
 
-            call.respondText(result)
+            call.respondText(result, ContentType.Application.Json)
         }
     }
 }
