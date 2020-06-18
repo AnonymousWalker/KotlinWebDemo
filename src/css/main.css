@@ -46,8 +46,7 @@ input[type=submit]:hover {
     width: 90%;
     margin: auto;
     text-align: center;
-    max-height: 0;
-    overflow: hidden;
+    opacity: 0;
     transition: all .5s ease;
     position: fixed;
     bottom: 5%;
@@ -55,16 +54,17 @@ input[type=submit]:hover {
     right: 0;
 }
 
-.main-grid__output--success {
+.main-grid__success {
     background-color: #cdffcf;
-    max-height: 100%;
-    transition: all .5s ease;
 }
 
-.main-grid__output--error {
+.main-grid__error {
     background-color: #ffa9b9;
-    max-height: 100%;
+}
+
+.main-grid__show-success-status {
     transition: all .5s ease;
+    opacity: 1;
 }
 
 .main-grid__footer {

@@ -26,13 +26,16 @@ function submitForm() {
 }
 
 function handleResponse(res) {
-    $(".main-grid__output-message").text(res.data.output)
+    // note that there are two p tags with class main-grid__output-message
+    // it's fine to replace both though since only will be shown at a time anyway
     if(res.data.success) {
-        $(".main-grid__success-status").text("Success!")
-        $(".main-grid__output").removeClass("main-grid__output--error").addClass("main-grid__output--success")
+        $(".main-grid__success-message").text(res.data.output)
+        $(".main-grid__error").removeClass("main-grid__show-success-status")
+        $(".main-grid__success").addClass("main-grid__show-success-status")
     } else {
-        $(".main-grid__success-status").text("Error!")
-        $(".main-grid__output").removeClass("main-grid__output--success").addClass("main-grid__output--error")
+        $(".main-grid__error-message").text(res.data.output)
+        $(".main-grid__success").removeClass("main-grid__show-success-status")
+        $(".main-grid__error").addClass("main-grid__show-success-status")
     }
 
     // multiply by 1000 here to convert from seconds to milliseconds
@@ -40,5 +43,6 @@ function handleResponse(res) {
 }
 
 function removeOutputMessage() {
-    $(".main-grid__output").removeClass("main-grid__output--success").removeClass("main-grid__output--error")
+    $(".main-grid__success").removeClass("main-grid__show-success-status")
+    $(".main-grid__error").removeClass("main-grid__show-success-status")
 }
