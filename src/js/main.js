@@ -5,12 +5,12 @@ function submitForm() {
     clearTimeout(removeOutputMessageTimeout)
 
     const fileName = document.getElementById("file").files[0].name;
-    const languageCode = $("#languageCode").val();
-    const dublinCoreId = $("#dublinCoreId").val();
-    const projectId = $("#projectId").val();
-    const mediaExtension = $("#mediaExtension").val();
-    const mediaQuality = $("#mediaQuality").val();
-    const grouping = $("#grouping").val();
+    const languageCode = document.querySelector("#languageCode").value;
+    const dublinCoreId = document.querySelector("#dublinCoreId").value;
+    const projectId = document.querySelector("#projectId").value;
+    const mediaExtension = document.querySelector("#mediaExtension").value;
+    const mediaQuality = document.querySelector("#mediaQuality").value;
+    const grouping = document.querySelector("#grouping").value;
 
     axios.post('http://localhost:4567/', {
         fileName,
@@ -27,13 +27,13 @@ function submitForm() {
 
 function handleResponse(res) {
     if(res.data.success) {
-        $(".main-grid__success-message").text(res.data.output)
-        $(".main-grid__error").removeClass("main-grid__show-success-status")
-        $(".main-grid__success").addClass("main-grid__show-success-status")
+        document.querySelector(".main-grid__success-message").innerHTML = res.data.output
+        document.querySelector(".main-grid__error").classList.remove("main-grid__show-success-status")
+        document.querySelector(".main-grid__success").classList.add("main-grid__show-success-status")
     } else {
-        $(".main-grid__error-message").text(res.data.output)
-        $(".main-grid__success").removeClass("main-grid__show-success-status")
-        $(".main-grid__error").addClass("main-grid__show-success-status")
+        document.querySelector(".main-grid__error-message").innerHTML = res.data.output
+        document.querySelector(".main-grid__success").classList.remove("main-grid__show-success-status")
+        document.querySelector(".main-grid__error").classList.add("main-grid__show-success-status")
     }
 
     // multiply by 1000 here to convert from seconds to milliseconds
@@ -41,6 +41,6 @@ function handleResponse(res) {
 }
 
 function removeOutputMessage() {
-    $(".main-grid__success").removeClass("main-grid__show-success-status")
-    $(".main-grid__error").removeClass("main-grid__show-success-status")
+    document.querySelector(".main-grid__success").classList.remove("main-grid__show-success-status")
+    document.querySelector(".main-grid__error").classList.remove("main-grid__show-success-status")
 }
