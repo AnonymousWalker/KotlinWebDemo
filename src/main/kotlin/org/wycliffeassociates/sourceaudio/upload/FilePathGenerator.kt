@@ -47,8 +47,3 @@ object FilePathGenerator {
         }
     }
 }
-fun main(){
-    val file = File("D:/WA/abc.mp3")
-    val arg = FileUploadModel(file, "en","ulb", "chunk", "gen")
-    println(FilePathGenerator.createPathFromFile(arg))
-}
