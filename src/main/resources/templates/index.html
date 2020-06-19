@@ -31,24 +31,24 @@
 
             <label for="mediaExtension"><span th:text="#{media_extension}">Media Extension</span><sup>1</sup></label>
             <select name="mediaExtension" id="mediaExtension">
-                <option value="">N/A</option>
+                <option value="" th:text="#{select_NA}">N/A</option>
                 <option value="mp3">mp3</option>
                 <option value="wav">wav</option>
             </select>
 
             <label for="mediaQuality"><span th:text="#{media_quality}">Media Quality</span><sup>2</sup></label>
             <select name="mediaQuality" id="mediaQuality">
-                <option value="">N/A</option>
-                <option value="hi">hi</option>
-                <option value="low">low</option>
+                <option value="" th:text="#{select_NA}">N/A</option>
+                <option value="hi" th:text="#{media_quality.hi}">hi</option>
+                <option value="low" th:text="#{media_quality.low}">low</option>
             </select>
 
             <label for="grouping"><span th:text="#{grouping}">Grouping</span><sup>*</sup></label>
             <select name="grouping" id="grouping">
-                <option value="book">Book</option>
-                <option value="chapter">Chapter</option>
-                <option value="verse">Verse</option>
-                <option value="chunk">Chunk</option>
+                <option value="book" th:text="#{grouping.book}">Book</option>
+                <option value="chapter" th:text="#{grouping.chapter}">Chapter</option>
+                <option value="verse" th:text="#{grouping.verse}">Verse</option>
+                <option value="chunk" th:text="#{grouping.chunk}">Chunk</option>
             </select>
 
             <input id="submit" type="submit" th:value="#{submit}">
