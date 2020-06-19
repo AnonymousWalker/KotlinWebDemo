@@ -1,6 +1,6 @@
 package org.wycliffeassociates.sourceaudio.upload.model
 
-enum class ContainerExtensions(ext: String) {
+enum class ContainerExtensions(val ext: String) {
     TR("tr");
 
     companion object : SupportedExtensions {
