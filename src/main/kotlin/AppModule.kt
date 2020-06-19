@@ -12,6 +12,11 @@ import io.ktor.request.receiveMultipart
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
 import org.wycliffeassociates.sourceaudio.routing.SupportedLanguages
 import org.wycliffeassociates.sourceaudio.upload.RequestHandler
+import org.wycliffeassociates.sourceaudio.upload.TemplateModel
+import org.wycliffeassociates.sourceaudio.upload.model.CompressedExtensions
+import org.wycliffeassociates.sourceaudio.upload.model.Groupings
+import org.wycliffeassociates.sourceaudio.upload.model.MediaQuality
+import org.wycliffeassociates.sourceaudio.upload.model.UncompressedExtensions
 import java.util.*
 
 fun Application.module() {
@@ -36,11 +41,20 @@ fun Application.module() {
             }
         }
         get("/") {
-            call.respond(ThymeleafContent(
-                "index",
-                mapOf("obj" to ""),
-                locale=getPreferredLocale(Locale.LanguageRange.parse(call.request.acceptLanguage()))
-            ))
+            val contentLanguage = Locale.LanguageRange.parse(call.request.acceptLanguage())
+            val templateModel = TemplateModel()
+
+            call.respond(
+                ThymeleafContent(
+                    template = "index",
+                    model = mapOf(
+                        "qualityList" to templateModel.qualityList,
+                        "groupingList" to templateModel.groupingList,
+                        "extensionList" to templateModel.extensionList
+                    ),
+                    locale = getPreferredLocale(contentLanguage)
+                )
+            )
         }
         post("/upload") {
             val multiPart = call.receiveMultipart().readAllParts()
@@ -53,11 +67,11 @@ fun Application.module() {
 
 fun getPreferredLocale(languageRanges: List<Locale.LanguageRange>): Locale {
     var language = ""
-    for(range in languageRanges) {
+    for (range in languageRanges) {
         language = range.range.split("-")[0]
-        if(SupportedLanguages.isSupported(language)) break
+        if (SupportedLanguages.isSupported(language)) break
     }
-    if(!SupportedLanguages.isSupported(language)) language = SupportedLanguages.getDefault()
+    if (!SupportedLanguages.isSupported(language)) language = SupportedLanguages.getDefault()
 
     return Locale(language)
 }
