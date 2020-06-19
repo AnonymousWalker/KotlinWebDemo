@@ -7,9 +7,12 @@ import io.ktor.response.*
 import io.ktor.routing.*
 import dev.jbs.ktor.thymeleaf.*
 import io.ktor.http.content.*
+import io.ktor.request.acceptLanguage
 import io.ktor.request.receiveMultipart
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
+import org.wycliffeassociates.sourceaudio.routing.SupportedLanguages
 import org.wycliffeassociates.sourceaudio.upload.RequestHandler
+import java.util.*
 
 fun Application.module() {
     install(DefaultHeaders)
@@ -33,7 +36,11 @@ fun Application.module() {
             }
         }
         get("/") {
-            call.respond(ThymeleafContent("index", mapOf("obj" to "")))
+            call.respond(ThymeleafContent(
+                "index",
+                mapOf("obj" to ""),
+                locale=getPreferredLocale(Locale.LanguageRange.parse(call.request.acceptLanguage()))
+            ))
         }
         post("/upload") {
             val multiPart = call.receiveMultipart().readAllParts()
@@ -42,4 +49,15 @@ fun Application.module() {
             call.respondText(result, ContentType.Application.Json)
         }
     }
+}
+
+fun getPreferredLocale(languageRanges: List<Locale.LanguageRange>): Locale {
+    var language = ""
+    for(range in languageRanges) {
+        language = range.range.split("-")[0]
+        if(SupportedLanguages.isSupported(language)) break
+    }
+    if(!SupportedLanguages.isSupported(language)) language = SupportedLanguages.getDefault()
+
+    return Locale(language)
 }
