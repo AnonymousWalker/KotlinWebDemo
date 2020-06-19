@@ -2,8 +2,9 @@ import io.ktor.application.Application
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 
+const val port: Int = 4567
+
 fun main(args: Array<String>) {
-    val port: Int = 4567
     embeddedServer(
         Netty,
         port = port,

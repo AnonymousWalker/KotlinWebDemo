@@ -11,7 +11,7 @@ data class FileUploadModel(
     val grouping: String,
     val projectId: String = "",
     val mediaExtension: String = "",
-    val mediaQuality: String = "hi"
+    var mediaQuality: String = ""
 ) {
 
     val extension: String = inputFile.extension
@@ -19,6 +19,7 @@ data class FileUploadModel(
 
     init {
         validate()
+        if(this.mediaQuality.isEmpty()) this.mediaQuality = "hi"
     }
 
     @Throws(IllegalArgumentException::class)

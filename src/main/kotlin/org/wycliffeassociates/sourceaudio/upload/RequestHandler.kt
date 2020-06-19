@@ -61,15 +61,14 @@ class RequestHandler {
 
     @Throws(IllegalArgumentException::class)
     private fun createModel(file: File, params: Map<String, String>): FileUploadModel {
-        val quality = if (params["mediaQuality"].isNullOrEmpty()) "hi" else params["mediaQuality"]!!
         return FileUploadModel(
-                inputFile = file,
-                languageCode = params["languageCode"]?:"",
-                resourceType = params["resourceType"]?:"",
-                grouping = params["grouping"]?:"",
-                projectId = params["projectId"]?:"",
-                mediaExtension = params["mediaExtension"]?:"",
-                mediaQuality = quality
-            )
+            inputFile = file,
+            languageCode = params["languageCode"] ?: "",
+            resourceType = params["resourceType"] ?: "",
+            grouping = params["grouping"] ?: "",
+            projectId = params["projectId"] ?: "",
+            mediaExtension = params["mediaExtension"] ?: "",
+            mediaQuality = params["mediaQuality"] ?: ""
+        )
     }
 }
