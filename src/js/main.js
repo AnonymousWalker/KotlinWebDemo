@@ -1,11 +1,16 @@
+const timeoutDuration = 10000 // 10 seconds
+let removeOutputMessageTimeout;
+
 function submitForm() {
-    const fileName = document.getElementById("file").files[0].name;
-    const languageCode = $("#languageCode").val();
-    const dublinCoreId = $("#dublinCoreId").val();
-    const projectId = $("#projectId").val();
-    const mediaExtension = $("#mediaExtension").val();
-    const mediaQuality = $("#mediaQuality").val();
-    const grouping = $("#grouping").val();
+    clearTimeout(removeOutputMessageTimeout)
+
+    const fileName = document.querySelector("#file").files[0].name;
+    const languageCode = document.querySelector("#languageCode").value;
+    const dublinCoreId = document.querySelector("#dublinCoreId").value;
+    const projectId = document.querySelector("#projectId").value;
+    const mediaExtension = document.querySelector("#mediaExtension").value;
+    const mediaQuality = document.querySelector("#mediaQuality").value;
+    const grouping = document.querySelector("#grouping").value;
 
     axios.post('http://localhost:4567/', {
         fileName,
@@ -21,10 +26,28 @@ function submitForm() {
 }
 
 function handleResponse(res) {
-    $(".main-grid__output-text").text(res.data.output)
     if(res.data.success) {
-        $(".main-grid__output").removeClass("main-grid__output--error").addClass("main-grid__output--success")
+        showSuccess()
     } else {
-        $(".main-grid__output").removeClass("main-grid__output--success").addClass("main-grid__output--error")
+        showError()
     }
+
+    removeOutputMessageTimeout = setTimeout(removeOutputMessage, timeoutDuration)
+}
+
+function showSuccess() {
+    document.querySelector(".main-grid__success-message").innerHTML = res.data.output
+    document.querySelector(".main-grid__error").classList.remove("main-grid__show-success-status")
+    document.querySelector(".main-grid__success").classList.add("main-grid__show-success-status")
+}
+
+function showError() {
+    document.querySelector(".main-grid__error-message").innerHTML = res.data.output
+    document.querySelector(".main-grid__success").classList.remove("main-grid__show-success-status")
+    document.querySelector(".main-grid__error").classList.add("main-grid__show-success-status")
+}
+
+function removeOutputMessage() {
+    document.querySelector(".main-grid__success").classList.remove("main-grid__show-success-status")
+    document.querySelector(".main-grid__error").classList.remove("main-grid__show-success-status")
 }
