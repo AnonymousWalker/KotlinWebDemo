@@ -1,7 +1,6 @@
 package org.wycliffeassociates.sourceaudio.upload
 
 import org.wycliffeassociates.sourceaudio.upload.model.*
-import java.io.File
 import java.lang.IllegalArgumentException
 
 object FilePathGenerator {

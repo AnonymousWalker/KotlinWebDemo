@@ -3,7 +3,6 @@ package org.wycliffeassociates.sourceaudio.upload
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import io.ktor.http.content.PartData
 import io.ktor.http.content.streamProvider
-import kotlinx.coroutines.suspendCancellableCoroutine
 import org.wycliffeassociates.sourceaudio.upload.model.FileUploadModel
 import java.io.File
 import java.lang.Exception

@@ -1,12 +1,9 @@
 package org.wycliffeassociates.sourceaudio.upload
 
-import io.ktor.application.call
-import io.ktor.request.acceptLanguage
 import org.wycliffeassociates.sourceaudio.upload.model.CompressedExtensions
 import org.wycliffeassociates.sourceaudio.upload.model.Groupings
 import org.wycliffeassociates.sourceaudio.upload.model.MediaQuality
 import org.wycliffeassociates.sourceaudio.upload.model.UncompressedExtensions
-import java.util.*
 
 class TemplateModel {
     val qualityList = MediaQuality.values().map { it.quality }
