@@ -12,8 +12,7 @@ import io.ktor.http.content.*
 import io.ktor.request.acceptLanguage
 import io.ktor.request.receiveMultipart
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver
-import org.wycliffeassociates.sourceaudio.routing.SupportedLanguages
-import java.util.Locale
+import java.util.*
 
 fun Application.appModule() {
     install(DefaultHeaders)
@@ -61,15 +60,18 @@ fun Application.appModule() {
     }
 }
 
-private fun getPreferredLocale(languageRanges: List<Locale.LanguageRange>): Locale {
-    var language = ""
-    for (range in languageRanges) {
-        language = range.range.split("-")[0]
-        if (SupportedLanguages.isSupported(language)) break
-    }
-    if (!SupportedLanguages.isSupported(language)) language = SupportedLanguages.getDefault()
+fun getPreferredLocale(languageRanges: List<Locale.LanguageRange>): Locale {
+    val noFallbackController = ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
 
-    return Locale(language)
+    for(languageRange in languageRanges) {
+        val locale = Locale.Builder().setLanguageTag(languageRange.range).build()
+        try {
+            ResourceBundle.getBundle("templates/index", locale, noFallbackController)
+            return locale
+        } catch (ex: Exception) { ex.printStackTrace() }
+    }
+
+    return Locale.getDefault()
 }
 
 val Application.envKind get() = environment.config.property("ktor.environment").getString()
