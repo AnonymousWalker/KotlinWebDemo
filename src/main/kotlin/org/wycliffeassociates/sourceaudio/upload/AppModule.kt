@@ -73,5 +73,3 @@ fun getPreferredLocale(languageRanges: List<Locale.LanguageRange>): Locale {
 
     return Locale.getDefault()
 }
-
-val Application.envKind get() = environment.config.property("ktor.environment").getString()

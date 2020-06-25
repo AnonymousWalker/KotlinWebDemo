@@ -18,8 +18,8 @@ data class FileUploadModel(
     val name: String = inputFile.name
 
     init {
-        validate()
         if(this.mediaQuality.isEmpty()) this.mediaQuality = "hi"
+        validate()
     }
 
     @Throws(IllegalArgumentException::class)
@@ -43,7 +43,7 @@ data class FileUploadModel(
                 throw IllegalArgumentException(".$mediaExtension file is not supported")
             }
         } else if (!CompressedExtensions.isSupported(fileExtension) && !UncompressedExtensions.isSupported(fileExtension)) {
-            throw IllegalArgumentException(".${fileExtension} file is not supported")
+            throw IllegalArgumentException(".$fileExtension file is not supported")
         }
     }
 }
