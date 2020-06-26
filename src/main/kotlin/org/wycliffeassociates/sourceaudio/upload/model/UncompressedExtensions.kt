@@ -1,6 +1,6 @@
 package org.wycliffeassociates.sourceaudio.upload.model
 
-enum class UncompressedExtensions(ext: String) {
+enum class UncompressedExtensions(val ext: String) {
     WAV("wav");
 
     companion object : SupportedExtensions {

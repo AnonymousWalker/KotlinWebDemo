@@ -55,10 +55,12 @@ input[type=submit]:hover {
 }
 
 .main-grid__success {
+    display: none;
     background-color: #cdffcf;
 }
 
 .main-grid__error {
+    display: none;
     background-color: #ffa9b9;
 }
 
