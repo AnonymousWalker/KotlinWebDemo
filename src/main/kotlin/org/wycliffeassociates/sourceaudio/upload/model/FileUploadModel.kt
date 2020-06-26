@@ -18,7 +18,6 @@ data class FileUploadModel(
     val name: String = inputFile.name
 
     init {
-        if(this.mediaQuality.isEmpty()) this.mediaQuality = "hi"
         validate()
     }
 
@@ -28,6 +27,7 @@ data class FileUploadModel(
         if (resourceType.isBlank()) { throw IllegalArgumentException("Dublin Core ID is empty") }
         if (grouping.isBlank()) { throw IllegalArgumentException("Group is empty") }
         if (!Groupings.isSupported(grouping)) { throw IllegalArgumentException("Group is not supported") }
+        if(mediaQuality.isEmpty()) this.mediaQuality = "hi"
         if (!MediaQuality.isSupported(mediaQuality)) { throw IllegalArgumentException("Media Quality is invalid") }
 
         validateExtensions(inputFile.extension, mediaExtension)

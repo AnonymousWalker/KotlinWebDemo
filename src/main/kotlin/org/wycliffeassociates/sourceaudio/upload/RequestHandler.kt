@@ -11,7 +11,8 @@ import java.lang.IllegalArgumentException
 class RequestHandler {
 
     fun handleFormUpload(parts: List<PartData>): String {
-        var file = File("./src/main/resources/uploads/").apply { mkdirs() }
+        val resourceDir = javaClass.getResource("/uploads").path
+        var file = File(resourceDir)
         val formItems = parts.filterIsInstance<PartData.FormItem>()
         val formFiles = parts.filterIsInstance<PartData.FileItem>()
         val paramsMap = formItems.associateBy { it.name!! }.mapValues { it.value.value }
@@ -39,7 +40,8 @@ class RequestHandler {
 
             output = FilePathGenerator.createPathFromFile(model)
 
-            val newDirectory = File("./src/main/resources/uploads/$output")
+            val resourceDir = javaClass.getResource("/uploads").path
+            val newDirectory = File("$resourceDir/$output")
             file.copyTo(newDirectory)  //this is where the file is stored on server
         } catch (ex: Exception) {
             output = if (ex is FileSystemException) ex.reason!! else ex.message!!
