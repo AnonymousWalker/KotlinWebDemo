@@ -47,7 +47,7 @@ fun Application.appModule() {
                         "groupingList" to templateModel.groupingList,
                         "extensionList" to templateModel.extensionList
                     ),
-                    locale = getPreferredLocale(contentLanguage)
+                    locale = getPreferredLocale(contentLanguage, "index")
                 )
             )
         }
@@ -60,13 +60,13 @@ fun Application.appModule() {
     }
 }
 
-fun getPreferredLocale(languageRanges: List<Locale.LanguageRange>): Locale {
+fun getPreferredLocale(languageRanges: List<Locale.LanguageRange>, templateName: String): Locale {
     val noFallbackController = ResourceBundle.Control.getNoFallbackControl(ResourceBundle.Control.FORMAT_PROPERTIES)
 
     for(languageRange in languageRanges) {
         val locale = Locale.Builder().setLanguageTag(languageRange.range).build()
         try {
-            ResourceBundle.getBundle("templates/index", locale, noFallbackController)
+            ResourceBundle.getBundle("templates/$templateName", locale, noFallbackController)
             return locale
         } catch (ex: Exception) { ex.printStackTrace() }
     }
